@@ -1,6 +1,5 @@
 GOOSE_MODE: smart_approve
 GOOSE_MODEL: claude-3-7-sonnet-latest
-GOOSE_PROVIDER: anthropic
 extensions:
   cloudflarecontainer:
     args:
@@ -12,7 +11,7 @@ extensions:
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Spin up containers and interact with them
-    enabled: true
+    enabled: false
     env_keys: []
     envs: {}
     name: cloudflarecontainer
@@ -52,7 +51,7 @@ extensions:
     bundled: null
     cmd: docker
     description: Docker integration
-    enabled: true
+    enabled: false
     env_keys: []
     envs: {}
     name: docker
@@ -86,9 +85,9 @@ extensions:
     args:
       - mcp-server-git
     bundled: null
-    cmd: /Users/dave/.local/share/mise/shims/uvx
+    cmd: uvx
     description: Interact with git repositories
-    enabled: true
+    enabled: false
     env_keys: []
     envs: {}
     name: git
@@ -101,7 +100,7 @@ extensions:
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Interact with GitHub
-    enabled: true
+    enabled: false
     env_keys: []
     envs: {}
     name: github
@@ -110,7 +109,7 @@ extensions:
   jetbrains:
     bundled: true
     display_name: Jetbrains
-    enabled: true
+    enabled: false
     name: jetbrains
     timeout: 300
     type: builtin
@@ -180,3 +179,4 @@ extensions:
     name: tutorial
     timeout: 300
     type: builtin
+GOOSE_PROVIDER: anthropic
