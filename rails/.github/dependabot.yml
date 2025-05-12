@@ -1,0 +1,34 @@
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: daily
+    assignees:
+      - daveio
+    reviewers:
+      - daveio
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    assignees:
+      - daveio
+    reviewers:
+      - daveio
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    assignees:
+      - daveio
+    reviewers:
+      - daveio
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: daily
+    assignees:
+      - daveio
+    reviewers:
+      - daveio

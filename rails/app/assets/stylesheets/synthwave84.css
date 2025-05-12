@@ -1,0 +1,124 @@
+/* Synthwave '84 Theme for MultiPost */
+
+[data-theme='synthwave84'] {
+  /* Base colors */
+  --primary: #f92aad;
+  --primary-focus: #fa1a9e;
+  --primary-content: #ffffff;
+
+  --secondary: #03edf9;
+  --secondary-focus: #00d6e7;
+  --secondary-content: #2a2139;
+
+  --accent: #72f1b8;
+  --accent-focus: #5ce0a7;
+  --accent-content: #2a2139;
+
+  --base-100: #2a2139;
+  --base-200: #241b2f;
+  --base-300: #1e1726;
+  --base-content: #f4eee4;
+
+  --neutral: #34294f;
+  --neutral-focus: #3a2d59;
+  --neutral-content: #f4eee4;
+
+  --info: #03edf9;
+  --info-content: #2a2139;
+
+  --success: #72f1b8;
+  --success-content: #2a2139;
+
+  --warning: #fff951;
+  --warning-content: #2a2139;
+
+  --error: #f97e72;
+  --error-content: #ffffff;
+
+  /* Additional Synthwave colors */
+  --synthwave-pink: #f92aad;
+  --synthwave-blue: #03edf9;
+  --synthwave-purple: #b893ce;
+  --synthwave-green: #72f1b8;
+  --synthwave-yellow: #f0f09b;
+  --synthwave-orange: #fc9867;
+  --synthwave-red: #f97e72;
+
+  /* Special effects applied via a filter wrapper */
+  --glow-intensity: 0.3;
+
+  /* Synthwave background with subtle gradient */
+  background-color: var(--base-100);
+  background-image: linear-gradient(to bottom, var(--base-100) 75%, var(--neutral));
+  background-size: auto 100vh;
+  background-position: top;
+  background-repeat: no-repeat;
+  color: var(--base-content);
+}
+
+/* Apply neon glow effect to specific elements */
+[data-theme='synthwave84'] .synthwave-glow-text {
+  text-shadow: 0 0 2px #100c0f, 0 0 5px rgba(242, 42, 173, 0.5), 0 0 10px rgba(242, 42, 173, 0.3);
+}
+
+[data-theme='synthwave84'] .synthwave-glow-blue {
+  text-shadow: 0 0 2px #001716, 0 0 3px rgba(3, 237, 249, 0.5), 0 0 5px rgba(3, 237, 249, 0.3);
+}
+
+[data-theme='synthwave84'] .synthwave-glow-green {
+  text-shadow: 0 0 2px #100c0f, 0 0 10px rgba(114, 241, 184, 0.5), 0 0 35px rgba(114, 241, 184, 0.3);
+}
+
+/* Define a scanline effect */
+[data-theme='synthwave84'] .synthwave-scanlines {
+  position: relative;
+}
+
+[data-theme='synthwave84'] .synthwave-scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.05) 0.5%, transparent 1%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Button styling with glow */
+[data-theme='synthwave84'] .btn-primary {
+  box-shadow: 0 0 10px rgba(242, 42, 173, 0.4);
+}
+
+[data-theme='synthwave84'] .btn-secondary {
+  box-shadow: 0 0 10px rgba(3, 237, 249, 0.4);
+}
+
+[data-theme='synthwave84'] .btn-accent {
+  box-shadow: 0 0 10px rgba(114, 241, 184, 0.4);
+}
+
+/* Active elements with gradient borders */
+[data-theme='synthwave84'] .active-border {
+  position: relative;
+}
+
+[data-theme='synthwave84'] .active-border::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--synthwave-pink), var(--synthwave-blue));
+  z-index: 1;
+}
+
+/* Gradient text for headings */
+[data-theme='synthwave84'] .gradient-text {
+  background: linear-gradient(to right, var(--synthwave-pink), var(--synthwave-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
