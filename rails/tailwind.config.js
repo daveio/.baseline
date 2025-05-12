@@ -1,27 +1,28 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/views/**/*.html.erb",
-    "./app/helpers/**/*.rb",
-    "./app/javascript/**/*.js",
-    "./app/assets/stylesheets/**/*.css"
+    './app/views/**/*.html.erb',
+    './app/helpers/**/*.rb',
+    './app/javascript/**/*.js',
+    './app/assets/stylesheets/**/*.css',
   ],
   theme: {
-    extend: {}
+    extend: {},
   },
   plugins: [
-    require("@catppuccin/tailwindcss")({
-      defaultFlavor: "frappe"
-    }),
-    require("daisyui")
+    require('daisyui'),
+    require('@catppuccin/tailwindcss')({
+      defaultFlavour: 'frappe'
+    })
   ],
   daisyui: {
     themes: [
+      "light",
+      "dark",
       {
-        latte: require("@catppuccin/daisyui").latte,
-        frappe: require("@catppuccin/daisyui").frappe,
-        macchiato: require("@catppuccin/daisyui").macchiato,
-        mocha: require("@catppuccin/daisyui").mocha,
+        "catppuccin": require('@catppuccin/daisyui').frappe
+      },
+      {
         synthwave84: {
           primary: "#f92aad",
           "primary-focus": "#fa1a9e",
@@ -58,6 +59,9 @@ module.exports = {
         }
       }
     ],
-    darkTheme: "frappe"
-  }
+    darkTheme: "dark",
+    base: true,
+    styled: true,
+    utils: true,
+  },
 }

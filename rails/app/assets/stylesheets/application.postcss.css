@@ -1,15 +1,12 @@
 /* Entry point for your PostCSS build */
-@import '@catppuccin/palette/css/catppuccin.css';
-@import 'tailwindcss/preflight';
-@import 'tailwindcss/utilities';
-@import 'synthwave84.css';
 
-:root {
-  color-scheme: dark;
-}
+@import "tailwindcss";
+@import "synthwave84.css";
+@import "catppuccin.css";
 
-@plugin "daisyui" {
-  themes: frappe --default, latte, macchiato, mocha, synthwave84;
-}
+@plugin "daisyui";
+
+/* Then apply Tailwind utilities */
+@tailwind utilities;
 
 /* Custom styles below this line */

@@ -12,8 +12,9 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # DaisyUI example page
-  get "daisyui" => "example#daisyui"
+  # Demo pages (development only)
+  get "demo" => "demo#index", as: :demo_index
+  get "demo/ui" => "demo#ui", as: :demo_ui
 
   # Defines the root path route ("/")
   # root "posts#index"

@@ -35,8 +35,8 @@ module CatppuccinHelper
     html_options.merge(
       {
         'data-theme-toggle': "true",
-        'data-light-theme': "latte",
-        'data-dark-theme': "frappe"
+        'data-light-theme': "light",
+        'data-dark-theme': "dark"
       }
     )
   end

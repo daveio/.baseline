@@ -452,7 +452,11 @@ interface PostComposerProps {
   onAddThreadPost: (content?: string) => void;
   onRemoveThreadPost: (index: number) => void;
   onExitThreadMode: () => void;
-  onApplySplit?: (strategy: SplittingStrategy, platformId: string, splitText: string[]) => void;
+  onApplySplit?: (
+    strategy: SplittingStrategy,
+    platformId: string,
+    splitText: string[],
+  ) => void;
   accounts?: Account[];
 }
 ```
@@ -484,7 +488,11 @@ interface AISplitPreviewProps {
   accounts: Account[];
   characterStats: CharacterStat[];
   onClose: () => void;
-  onApplySplit: (strategy: SplittingStrategy, platformId: string, splitText: string[]) => void;
+  onApplySplit: (
+    strategy: SplittingStrategy,
+    platformId: string,
+    splitText: string[],
+  ) => void;
   advancedOptions?: {
     showRawJson?: boolean;
     [key: string]: any;
@@ -529,7 +537,11 @@ interface SplitWithAIButtonProps {
   isContentTooLong: boolean;
   accounts: Account[];
   characterStats: CharacterStat[];
-  onApplySplit: (strategy: SplittingStrategy, platformId: string, splitText: string[]) => void;
+  onApplySplit: (
+    strategy: SplittingStrategy,
+    platformId: string,
+    splitText: string[],
+  ) => void;
   advancedOptions?: {
     showRawJson?: boolean;
     [key: string]: any;
@@ -771,7 +783,6 @@ If the OpenAI API key is missing or invalid, the application will:
 To obtain an OpenAI API key:
 
 <!-- trunk-ignore(markdown-link-check/403) -->
-
 1. Create an account at [OpenAI](https://openai.com)
 2. Navigate to API key management
 3. Generate a new API key
@@ -870,7 +881,12 @@ Request:
 ```json
 {
   "content": "Long post content to split...",
-  "strategies": ["semantic", "sentence", "retain_hashtags", "preserve_mentions"],
+  "strategies": [
+    "semantic",
+    "sentence",
+    "retain_hashtags",
+    "preserve_mentions"
+  ],
   "customMastodonLimit": 500
 }
 ```
