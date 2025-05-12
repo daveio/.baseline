@@ -4,10 +4,6 @@
       "command": "/Users/dave/.local/share/mise/shims/bun",
       "args": ["x", "@upstash/context7-mcp"]
     },
-    "docker": {
-      "args": ["ai", "mcpserver"],
-      "command": "docker"
-    },
     "duckduckgo": {
       "args": ["duckduckgo-mcp-server"],
       "command": "/Users/dave/.local/share/mise/shims/uvx"
