@@ -16,6 +16,10 @@
       "args": ["mcp-server-git"],
       "command": "/Users/dave/.local/share/mise/shims/uvx"
     },
+    "github": {
+      "args": ["x", "@modelcontextprotocol/server-github"],
+      "command": "/Users/dave/.local/share/mise/shims/bun"
+    },
     "memory": {
       "args": ["x", "@modelcontextprotocol/server-memory"],
       "command": "/Users/dave/.local/share/mise/shims/bun",
