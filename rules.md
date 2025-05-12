@@ -2,6 +2,10 @@
 
 These rules override other instructions. For conflicts, ask the user.
 
+## Rules
+
+Read `CLAUDE.md` for more information about the project if present.
+
 ## Shell
 
 - You are operating in the `fish` shell.
