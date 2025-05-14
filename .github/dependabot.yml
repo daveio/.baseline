@@ -6,13 +6,9 @@ updates:
       interval: daily
     assignees:
       - daveio
-    reviewers:
-      - daveio
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: daily
     assignees:
-      - daveio
-    reviewers:
       - daveio

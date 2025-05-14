@@ -6,15 +6,11 @@ updates:
       interval: daily
     assignees:
       - daveio
-    reviewers:
-      - daveio
   - package-ecosystem: cargo
     directory: /
     schedule:
       interval: daily
     assignees:
-      - daveio
-    reviewers:
       - daveio
   - package-ecosystem: docker
     directory: /
@@ -22,15 +18,11 @@ updates:
       interval: daily
     assignees:
       - daveio
-    reviewers:
-      - daveio
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: daily
     assignees:
-      - daveio
-    reviewers:
       - daveio
   - package-ecosystem: gomod
     directory: /
@@ -38,21 +30,15 @@ updates:
       interval: daily
     assignees:
       - daveio
-    reviewers:
-      - daveio
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: daily
     assignees:
       - daveio
-    reviewers:
-      - daveio
   - package-ecosystem: pip
     directory: /
     schedule:
       interval: daily
     assignees:
-      - daveio
-    reviewers:
       - daveio
