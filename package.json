@@ -15,5 +15,12 @@
   "dependencies": {
     "@biomejs/biome": "^1.9.4"
   },
-  "trustedDependencies": ["@biomejs/biome", "unrs-resolver"]
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "unrs-resolver"
+  ],
+  "engines": {
+    "bun": "~1.2.13",
+    "node": "~lts"
+  }
 }
