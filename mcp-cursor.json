@@ -1,5 +1,10 @@
 {
   "mcpServers": {
+    "claude-code": {
+      "command": "claude mcp serve",
+      "args": [],
+      "env": {}
+    },
     "context7": {
       "command": "/Users/dave/.local/share/mise/shims/bun",
       "args": ["x", "@upstash/context7-mcp"]

@@ -1,6 +1,15 @@
 GOOSE_MODE: smart_approve
-GOOSE_MODEL: claude-3-7-sonnet-latest
+GOOSE_PROVIDER: openai
 extensions:
+  claudecode:
+    cmd: claude mcp serve
+    description: Claude Code MCP server
+    enabled: true
+    env_keys: []
+    envs: {}
+    name: claudecode
+    timeout: 300
+    type: stdio
   cloudflarecontainer:
     args:
       - x
@@ -123,7 +132,7 @@ extensions:
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Interact with the Linear project management tool
-    enabled: true
+    enabled: false
     env_keys: []
     envs: {}
     name: linear
@@ -143,7 +152,7 @@ extensions:
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Interact with Notion
-    enabled: true
+    enabled: false
     env_keys:
       - OPENAPI_MCP_HEADERS
     envs: {}
@@ -154,9 +163,9 @@ extensions:
     args:
       - mcp-read-pdf
     bundled: null
-    cmd: /Users/dave/.local/share/mise/shims/uvx
+    cmd: uvx
     description: Read large and complex PDF documents
-    enabled: true
+    enabled: false
     env_keys: []
     envs: {}
     name: pdfreader
@@ -165,7 +174,7 @@ extensions:
   pieces:
     bundled: null
     description: Interact with the Pieces long-term memory engine
-    enabled: true
+    enabled: false
     env_keys: []
     envs: {}
     name: pieces
@@ -179,4 +188,17 @@ extensions:
     name: tutorial
     timeout: 300
     type: builtin
-GOOSE_PROVIDER: anthropic
+  whois:
+    args:
+      - x
+      - "@bharathvaj/whois-mcp"
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Look up WHOIS for a domain
+    enabled: true
+    env_keys: []
+    envs: {}
+    name: whois
+    timeout: 300
+    type: stdio
+GOOSE_MODEL: gpt-4o
