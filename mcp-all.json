@@ -4,6 +4,10 @@
       "args": ["ableton-mcp"],
       "command": "/Users/dave/.local/share/mise/shims/uvx"
     },
+    "claude-code": {
+      "command": "claude mcp serve",
+      "args": []
+    },
     "cloudflareAI": {
       "args": ["x", "mcp-remote", "https://ai-gateway.mcp.cloudflare.com/sse", "--transport", "sse-only"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
