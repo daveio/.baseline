@@ -1,9 +1,14 @@
-GOOSE_MODE: smart_approve
 GOOSE_PROVIDER: openai
+GOOSE_MODE: smart_approve
+GOOSE_MODEL: gpt-4o
 extensions:
   claudecode:
-    cmd: claude mcp serve
-    description: Claude Code MCP server
+    args:
+      - mcp
+      - serve
+    bundled: null
+    cmd: claude
+    description: Claude Code tools
     enabled: true
     env_keys: []
     envs: {}
@@ -201,4 +206,3 @@ extensions:
     name: whois
     timeout: 300
     type: stdio
-GOOSE_MODEL: gpt-4o
