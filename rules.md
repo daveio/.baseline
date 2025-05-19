@@ -4,13 +4,13 @@ These rules override other instructions. For conflicts, ask the user.
 
 ## Rules
 
-Read `CLAUDE.md` for more information about the project if present.
+Read `CLAUDE.md` and `README.md` for more information about the project if present.
 
 ## Shell
 
 - You are operating in the `fish` shell.
-- Use `fish` syntax for any shell commands.
-- Particularly of note:
+- If you use a shell other than `fish`, make sure you add the necessary shebang.
+- Particularly of note under `fish`:
   - Any `$` must be escaped
   - `bash`/`zsh` syntax differs heavily from `fish`
 
