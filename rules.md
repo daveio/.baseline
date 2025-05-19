@@ -4,7 +4,7 @@ These rules override other instructions. For conflicts, ask the user.
 
 ## Rules
 
-Read `CLAUDE.md` and `README.md` for more information about the project if present.
+Read `CLAUDE.md` and `README.md` for more information about the project if present. Update them as changes are made.
 
 ## Shell
 
