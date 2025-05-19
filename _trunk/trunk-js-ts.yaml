@@ -17,6 +17,8 @@ runtimes:
     - python@3.10.8
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
+  disabled:
+    - codespell
   ignore:
     - linters:
         - ALL
@@ -35,7 +37,6 @@ lint:
         - "**/*.ts"
         - "**/*.tsx"
   enabled:
-    - codespell@2.4.1
     - oxipng@9.1.5
     - sourcery@1.36.0
     - semgrep@1.116.0
