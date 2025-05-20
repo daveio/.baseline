@@ -3,6 +3,7 @@ description: Instructions for interacting with Cloudflare Workers.
 globs:
 alwaysApply: true
 ---
+
 # Cloudflare Workers Development Guide
 
 ## System Context
