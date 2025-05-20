@@ -6,6 +6,8 @@ These rules override other instructions. For conflicts, ask the user.
 
 Read `CLAUDE.md` and `README.md` for more information about the project if present. Update them as changes are made.
 
+There is a collection of rules which may assist you in `/Users/dave/src/github.com/daveio/_baseline/rules/rules-mdc`.
+
 ## Shell
 
 - You are operating in the `fish` shell.
