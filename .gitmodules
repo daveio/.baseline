@@ -2,5 +2,5 @@
 	path = rules
 	url = https://github.com/sanjeed5/awesome-cursor-rules-mdc.git
 [submodule "rules-more"]
-	path = awesome-cursorrules
+	path = rules-more
 	url = https://github.com/PatrickJS/awesome-cursorrules.git
