@@ -1,6 +1,3 @@
 [submodule "rules"]
 	path = rules
 	url = https://github.com/sanjeed5/awesome-cursor-rules-mdc.git
-[submodule "rules-more"]
-	path = rules-more
-	url = https://github.com/PatrickJS/awesome-cursorrules.git
