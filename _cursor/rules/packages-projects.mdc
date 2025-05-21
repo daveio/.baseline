@@ -3,8 +3,9 @@ description: Package and project managers to use, and any caveats.
 globs:
 alwaysApply: true
 ---
+# Package Management
 
-# Package Managers
+You can use the `context7` MCP tool to find libraries, frameworks, and snippets which could help you do things. In general, prefer to use a library over attempting to do something manually.
 
 ## JavaScript/TypeScript
 
