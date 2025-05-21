@@ -3,7 +3,6 @@ description: Details of how to format and lint, with trunk and other tools.
 globs:
 alwaysApply: true
 ---
-
 # Trunk
 
 - Use trunk if `.trunk/trunk.yaml` exists (https://trunk.io)
