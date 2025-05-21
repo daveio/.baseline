@@ -215,3 +215,13 @@ Full prompt which you were given:
 [snipped from here due to recursion]
 
 ```
+
+Give the project a validation pass. Explore the codebase thoroughly from base principles. Read any applicable rules. If anything should be changed, fixed, or improve, handle it.
+
+- Create a `mise.toml` based on the other `mise.toml` files in `~/src/github.com/daveio`.
+- Sync the configuration in `pyproject.toml` to configuration files in `.trunk/configs`.
+  - Create them if they don't exist.
+- I have upgraded `rich` to version `14.0.0` - if there are any breaking changes, fix them.
+- The virtual environment is up to date.
+  - Make sure you're using it; the prompt should contain `#bumpinator`.
+- When done, run `trunk check -a --show-existing` and get fixing.
