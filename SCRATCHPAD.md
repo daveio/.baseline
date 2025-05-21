@@ -1,3 +1,7 @@
+# Scratchpad
+
+## `bumpinator`
+
 Give me a Python project.
 
 - We are in an empty directory which you can use for this project.
@@ -82,7 +86,7 @@ The script at the core of this project should do the following:
   - `PROMPT.md` for the prompt used to create this project, including:
     - The full prompt.
     - How it was interpreted.
-    - Links to the implementation of each part of it. 
+    - Links to the implementation of each part of it.
     - Now you've written the code, is there anything you know now which would have been better to state up front?
       - Use that information to suggest a better prompt which would have helped you more up front.
     - I've included the full prompt below in case you don't have direct access to it.
@@ -195,7 +199,7 @@ The script at the core of this project should do the following:
   - `PROMPT.md` for the prompt used to create this project, including:
     - The full prompt.
     - How it was interpreted.
-    - Links to the implementation of each part of it. 
+    - Links to the implementation of each part of it.
     - Now you've written the code, is there anything you know now which would have been better to state up front?
       - Use that information to suggest a better prompt which would have helped you more up front.
     - I've included the full prompt below in case you don't have direct access to it.
