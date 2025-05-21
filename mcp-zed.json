@@ -1,0 +1,53 @@
+{
+  "context_servers": {
+    "claude-code": {
+      "path": "claude mcp serve",
+      "args": []
+    },
+    "context7": {
+      "path": "/Users/dave/.local/share/mise/shims/bun",
+      "args": ["x", "@upstash/context7-mcp"]
+    },
+    "docker": {
+      "args": ["ai", "mcpserver"],
+      "path": "docker"
+    },
+    "duckduckgo": {
+      "args": ["duckduckgo-mcp-server"],
+      "path": "/Users/dave/.local/share/mise/shims/uvx"
+    },
+    "fetch": {
+      "args": ["mcp-server-fetch"],
+      "path": "/Users/dave/.local/share/mise/shims/uvx"
+    },
+    "git": {
+      "args": ["mcp-server-git"],
+      "path": "/Users/dave/.local/share/mise/shims/uvx"
+    },
+    "github": {
+      "args": ["x", "@modelcontextprotocol/server-github"],
+      "path": "/Users/dave/.local/share/mise/shims/bun"
+    },
+    "memory": {
+      "args": ["x", "@modelcontextprotocol/server-memory"],
+      "path": "/Users/dave/.local/share/mise/shims/bun",
+      "env": {
+        "MEMORY_FILE_PATH": "/Users/dave/.memory.json"
+      }
+    },
+    "pdfReader": {
+      "args": ["mcp-read-pdf"],
+      "path": "/Users/dave/.local/share/mise/shims/uvx"
+    },
+    "pieces": {
+      "args": [
+        "x",
+        "mcp-remote",
+        "http://localhost:39300/model_context_protocol/2024-11-05/sse",
+        "--transport",
+        "sse-only"
+      ],
+      "path": "/Users/dave/.local/share/mise/shims/bun"
+    }
+  }
+}
