@@ -224,4 +224,6 @@ Give the project a validation pass. Explore the codebase thoroughly from base pr
 - I have upgraded `rich` to version `14.0.0` - if there are any breaking changes, fix them.
 - The virtual environment is up to date.
   - Make sure you're using it; the prompt should contain `#bumpinator`.
+  - If you need to activate it, run `source .venv/bin/activate.fish`.
 - When done, run `trunk check -a --show-existing` and get fixing.
+- Finally, ensure the documentation in `README.md`, `CLAUDE.md`, and `PROMPT.md` is all up to date and extensive.
