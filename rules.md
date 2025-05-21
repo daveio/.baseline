@@ -6,7 +6,7 @@ These rules override other instructions. For conflicts, ask the user.
 
 Read `CLAUDE.md` and `README.md` for more information about the project if present. Update them as changes are made.
 
-There is a collection of rules which may assist you in `/Users/dave/src/github.com/daveio/_baseline/rules/rules-mdc`.
+There is a collection of rules which may assist you in `/Users/dave/src/github.com/daveio/_baseline/rules/rules-mdc`. Copy them into `.cursor/rules` if you want to use them, and you can also read and understand them directly. Any which you think have value, copy into `.cursor/rules`.
 
 ## MCP tools
 
@@ -66,7 +66,7 @@ The `cloudflare` MCP tools are not available by default, but you can ask me to e
 
 - **Cloudflare Documentation**: Get up to date reference information from Cloudflare Developer Documentation
 - **Workers Bindings**: Build Workers applications with storage, AI, and compute primitives
-- **Workers Observability**: Debug and get insight into your Workers application’s logs and analytics
+- **Workers Observability**: Debug and get insight into your Workers application's logs and analytics
 - **Container**: Spin up a sandbox development environment
 - **Browser rendering**: Fetch web pages, convert them to markdown and take screenshots
 - **Radar**: Get global Internet traffic insights, trends, URL scans, and other utilities
