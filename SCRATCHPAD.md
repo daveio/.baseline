@@ -1,7 +1,5 @@
 # Scratchpad
 
-Commit test.
-
 ## `bumpinator`
 
 Give me a Python project.
