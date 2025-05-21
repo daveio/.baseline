@@ -1,6 +1,6 @@
 # Scratchpad
 
-
+Commit test.
 
 ## `bumpinator`
 
