@@ -9,6 +9,10 @@
       "command": "/Users/dave/.local/share/mise/shims/bun",
       "args": ["x", "@upstash/context7-mcp"]
     },
+    "docker": {
+      "args": ["ai", "mcpserver"],
+      "command": "docker"
+    },
     "duckduckgo": {
       "args": ["duckduckgo-mcp-server"],
       "command": "/Users/dave/.local/share/mise/shims/uvx"
@@ -31,16 +35,6 @@
       "env": {
         "MEMORY_FILE_PATH": "/Users/dave/.memory.json"
       }
-    },
-    "pieces": {
-      "args": [
-        "x",
-        "mcp-remote",
-        "http://localhost:39300/model_context_protocol/2024-11-05/sse",
-        "--transport",
-        "sse-only"
-      ],
-      "command": "/Users/dave/.local/share/mise/shims/bun"
     }
   }
 }

@@ -6,7 +6,7 @@ env_file = '.env'
 
 [tools]
 python = { version = '3.13.3' }
-bun = { version = '1.2.13' }
+bun = { version = '1.2.14' }
 
 [tasks]
 'rules' = { run = '/usr/bin/env python3 scripts/rules.py' }

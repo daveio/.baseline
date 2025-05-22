@@ -17,7 +17,8 @@
   },
   "trustedDependencies": ["@biomejs/biome", "unrs-resolver"],
   "engines": {
-    "bun": "~1.2.13",
+    "bun": "~1.2.14",
     "node": "~lts"
-  }
+  },
+  "packageManager": "bun@1.2.14"
 }
