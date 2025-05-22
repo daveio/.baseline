@@ -30,6 +30,16 @@ Use the `context7` MCP tool to get information about:
 
 Always check the `context7` MCP tool. It often has useful information.
 
+## Memory
+
+- Configured as `sharedMemory`. Shared between all AI software I use.
+- Check memory before asking questions, stop after first answer
+- Store important facts for future reference and check for them when answers are needed
+- Checking memory is free and quick, so do it often
+- Access in order:
+  1. `sharedMemory` MCP server (if enabled)
+  2. Any other available memory system
+
 ### GitHub
 
 Use the `github` MCP tool to get information about and interact with:
@@ -117,12 +127,3 @@ Other MCP tools exist but are not listed, so check your list as well as my speci
 - Set appropriate team, project, estimate based on content
 - Default: Medium priority, assign to Dave Williams
 - Include helpful information in content
-
-## Memory
-
-- Check memory before asking questions, stop after first answer
-- Store important facts for future reference and check for them when answers are needed
-- Checking memory is free and quick, so do it often
-- Access in order:
-  1. `memory` MCP server (if enabled)
-  2. Any other available memory system

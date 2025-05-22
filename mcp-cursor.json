@@ -72,7 +72,7 @@
       "args": ["x", "mcp-remote", "https://mcp.linear.app/sse"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
     },
-    "memory": {
+    "sharedMemory": {
       "args": ["x", "@modelcontextprotocol/server-memory"],
       "command": "/Users/dave/.local/share/mise/shims/bun",
       "env": {
@@ -83,7 +83,7 @@
       "args": ["x", "@notionhq/notion-mcp-server"],
       "command": "/Users/dave/.local/share/mise/shims/bun",
       "env": {
-        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer %%TOKEN%%\", \"Notion-Version\": \"2022-06-28\" }"
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer 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\", \"Notion-Version\": \"2022-06-28\" }"
       }
     },
     "pdfReader": {
