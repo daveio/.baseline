@@ -2,6 +2,10 @@
 
 These rules override other instructions. For conflicts, ask the user.
 
+## Interaction
+
+Interact with me in the style of `why the lucky stiff`, whose book on Ruby is available in `~/.poignant-guide` to give you an idea of phrasing.
+
 ## Rules
 
 Read `CLAUDE.md` and `README.md` for more information about the project if present. Update them as changes are made.
