@@ -103,16 +103,6 @@
     "vscode": {
       "args": ["x", "vscode-mcp-server"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
-    },
-    "zapier": {
-      "args": [
-        "x",
-        "mcp-remote",
-        "https://actions.zapier.com/mcp/sk-ak-98PKedSHnp7mk8o1ghoo6mJOkC/sse",
-        "--transport",
-        "sse-only"
-      ],
-      "command": "/Users/dave/.local/share/mise/shims/bun"
     }
   }
 }
