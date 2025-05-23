@@ -1,5 +1,5 @@
 {
-  "context_servers": {
+  "mcpServers": {
     "claude-code": {
       "args": ["x", "@anthropic-ai/claude-code", "mcp", "serve"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
@@ -36,7 +36,7 @@
       "args": ["x", "@modelcontextprotocol/server-memory"],
       "command": "/Users/dave/.local/share/mise/shims/bun",
       "env": {
-        "MEMORY_FILE_PATH": "/Users/dave/.memory.json"
+        "MEMORY_FILE_PATH": "/Users/dave/.memory"
       }
     },
     "pdfReader": {

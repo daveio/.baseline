@@ -323,7 +323,7 @@ extensions:
     enabled: true
     env_keys: []
     envs:
-      MEMORY_FILE_PATH: /Users/dave/.memory.json
+      MEMORY_FILE_PATH: /Users/dave/.memory
     name: sharedmemory
     timeout: 300
     type: stdio

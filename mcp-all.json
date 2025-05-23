@@ -76,7 +76,7 @@
       "args": ["x", "@modelcontextprotocol/server-memory"],
       "command": "/Users/dave/.local/share/mise/shims/bun",
       "env": {
-        "MEMORY_FILE_PATH": "/Users/dave/.memory.json"
+        "MEMORY_FILE_PATH": "/Users/dave/.memory"
       }
     },
     "notion": {
