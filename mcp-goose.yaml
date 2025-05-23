@@ -16,10 +16,12 @@ extensions:
     type: stdio
   claudecode:
     args:
+      - x
+      - "@anthropic-ai/claude-code"
       - mcp
       - serve
     bundled: null
-    cmd: claude
+    cmd: /Users/dave/.local/share/mise/shims/bun
     description: Claude Code tools
     enabled: true
     env_keys: []
@@ -32,8 +34,6 @@ extensions:
       - x
       - mcp-remote
       - https://autorag.mcp.cloudflare.com/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Cloudflare AutoRAG
@@ -48,8 +48,6 @@ extensions:
       - x
       - mcp-remote
       - https://dns-analytics.mcp.cloudflare.com/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Cloudflare DNS Analytics
@@ -64,8 +62,6 @@ extensions:
       - x
       - mcp-remote
       - https://ai-gateway.mcp.cloudflare.com/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Cloudflare AI Gateway
@@ -80,8 +76,6 @@ extensions:
       - x
       - mcp-remote
       - https://auditlogs.mcp.cloudflare.com/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Cloudflare Audit Logs
@@ -96,8 +90,6 @@ extensions:
       - x
       - mcp-remote
       - https://bindings.mcp.cloudflare.com/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Cloudflare Workers Bindings
@@ -112,8 +104,6 @@ extensions:
       - x
       - mcp-remote
       - https://containers.mcp.cloudflare.com/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Spin up containers and interact with them
@@ -128,8 +118,6 @@ extensions:
       - x
       - mcp-remote
       - https://observability.mcp.cloudflare.com/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Cloudflare Workers Observability
@@ -144,8 +132,6 @@ extensions:
       - x
       - mcp-remote
       - https://radar.mcp.cloudflare.com/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Cloudflare Radar
@@ -160,8 +146,6 @@ extensions:
       - x
       - mcp-remote
       - https://browser.mcp.cloudflare.com/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Cloudflare Browser Rendering
@@ -272,8 +256,6 @@ extensions:
       - x
       - mcp-remote
       - https://mcp.linear.app/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Interact with the Linear project management tool
@@ -322,8 +304,6 @@ extensions:
       - x
       - mcp-remote
       - http://localhost:39300/model_context_protocol/2024-11-05/sse
-      - --transport
-      - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Interact with the Pieces long-term memory engine
