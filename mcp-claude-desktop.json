@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "claude-code": {
-      "command": "claude mcp serve",
-      "args": []
+      "args": ["x", "@anthropic-ai/claude-code", "mcp", "serve"],
+      "command": "/Users/dave/.local/share/mise/shims/bun"
     },
     "cloudflareContainer": {
       "args": ["x", "mcp-remote", "https://containers.mcp.cloudflare.com/sse"],
@@ -44,11 +44,7 @@
       "command": "/Users/dave/.local/share/mise/shims/uvx"
     },
     "pieces": {
-      "args": [
-        "x",
-        "mcp-remote",
-        "http://localhost:39300/model_context_protocol/2024-11-05/sse"
-      ],
+      "args": ["x", "mcp-remote", "http://localhost:39300/model_context_protocol/2024-11-05/sse"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
     }
   }
