@@ -32,7 +32,7 @@ extensions:
       - x
       - mcp-remote
       - https://autorag.mcp.cloudflare.com/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -48,7 +48,7 @@ extensions:
       - x
       - mcp-remote
       - https://dns-analytics.mcp.cloudflare.com/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -64,7 +64,7 @@ extensions:
       - x
       - mcp-remote
       - https://ai-gateway.mcp.cloudflare.com/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -80,7 +80,7 @@ extensions:
       - x
       - mcp-remote
       - https://auditlogs.mcp.cloudflare.com/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -96,7 +96,7 @@ extensions:
       - x
       - mcp-remote
       - https://bindings.mcp.cloudflare.com/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -112,7 +112,7 @@ extensions:
       - x
       - mcp-remote
       - https://containers.mcp.cloudflare.com/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -128,7 +128,7 @@ extensions:
       - x
       - mcp-remote
       - https://observability.mcp.cloudflare.com/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -144,7 +144,7 @@ extensions:
       - x
       - mcp-remote
       - https://radar.mcp.cloudflare.com/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -160,7 +160,7 @@ extensions:
       - x
       - mcp-remote
       - https://browser.mcp.cloudflare.com/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -272,7 +272,7 @@ extensions:
       - x
       - mcp-remote
       - https://mcp.linear.app/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -322,7 +322,7 @@ extensions:
       - x
       - mcp-remote
       - http://localhost:39300/model_context_protocol/2024-11-05/sse
-      - "--transport"
+      - --transport
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
