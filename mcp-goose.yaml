@@ -1,7 +1,19 @@
-GOOSE_PROVIDER: openai
 GOOSE_MODE: smart_approve
-GOOSE_MODEL: gpt-4o
+GOOSE_MODEL: claude-sonnet-4-20250514
+GOOSE_PROVIDER: anthropic
 extensions:
+  abletonlive:
+    args:
+      - ableton-mcp
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/uvx
+    description: Interact with Ableton Live
+    enabled: false
+    env_keys: []
+    envs: {}
+    name: abletonlive
+    timeout: 300
+    type: stdio
   claudecode:
     args:
       - mcp
@@ -15,20 +27,148 @@ extensions:
     name: claudecode
     timeout: 300
     type: stdio
+  cloudflareAutorag:
+    args:
+      - x
+      - mcp-remote
+      - https://autorag.mcp.cloudflare.com/sse
+      - "--transport"
+      - sse-only
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Cloudflare AutoRAG
+    enabled: false
+    env_keys: []
+    envs: {}
+    name: cloudflareAutorag
+    timeout: 300
+    type: stdio
+  cloudflareDNS:
+    args:
+      - x
+      - mcp-remote
+      - https://dns-analytics.mcp.cloudflare.com/sse
+      - "--transport"
+      - sse-only
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Cloudflare DNS Analytics
+    enabled: false
+    env_keys: []
+    envs: {}
+    name: cloudflareDNS
+    timeout: 300
+    type: stdio
+  cloudflareai:
+    args:
+      - x
+      - mcp-remote
+      - https://ai-gateway.mcp.cloudflare.com/sse
+      - "--transport"
+      - sse-only
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Cloudflare AI Gateway
+    enabled: false
+    env_keys: []
+    envs: {}
+    name: cloudflareai
+    timeout: 300
+    type: stdio
+  cloudflareaudit:
+    args:
+      - x
+      - mcp-remote
+      - https://auditlogs.mcp.cloudflare.com/sse
+      - "--transport"
+      - sse-only
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Cloudflare Audit Logs
+    enabled: false
+    env_keys: []
+    envs: {}
+    name: cloudflareaudit
+    timeout: 300
+    type: stdio
+  cloudflarebindings:
+    args:
+      - x
+      - mcp-remote
+      - https://bindings.mcp.cloudflare.com/sse
+      - "--transport"
+      - sse-only
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Cloudflare Workers Bindings
+    enabled: false
+    env_keys: []
+    envs: {}
+    name: cloudflarebindings
+    timeout: 300
+    type: stdio
   cloudflarecontainer:
     args:
       - x
       - mcp-remote
       - https://containers.mcp.cloudflare.com/sse
-      - --transport
+      - "--transport"
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Spin up containers and interact with them
-    enabled: false
+    enabled: true
     env_keys: []
     envs: {}
     name: cloudflarecontainer
+    timeout: 300
+    type: stdio
+  cloudflareobservability:
+    args:
+      - x
+      - mcp-remote
+      - https://observability.mcp.cloudflare.com/sse
+      - "--transport"
+      - sse-only
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Cloudflare Workers Observability
+    enabled: false
+    env_keys: []
+    envs: {}
+    name: cloudflareobservability
+    timeout: 300
+    type: stdio
+  cloudflareradar:
+    args:
+      - x
+      - mcp-remote
+      - https://radar.mcp.cloudflare.com/sse
+      - "--transport"
+      - sse-only
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Cloudflare Radar
+    enabled: false
+    env_keys: []
+    envs: {}
+    name: cloudflareradar
+    timeout: 300
+    type: stdio
+  cloudflarerendering:
+    args:
+      - x
+      - mcp-remote
+      - https://browser.mcp.cloudflare.com/sse
+      - "--transport"
+      - sse-only
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Cloudflare Browser Rendering
+    enabled: true
+    env_keys: []
+    envs: {}
+    name: cloudflarerendering
     timeout: 300
     type: stdio
   computercontroller:
@@ -65,7 +205,7 @@ extensions:
     bundled: null
     cmd: docker
     description: Docker integration
-    enabled: false
+    enabled: true
     env_keys: []
     envs: {}
     name: docker
@@ -99,9 +239,9 @@ extensions:
     args:
       - mcp-server-git
     bundled: null
-    cmd: uvx
+    cmd: /Users/dave/.local/share/mise/shims/uvx
     description: Interact with git repositories
-    enabled: false
+    enabled: true
     env_keys: []
     envs: {}
     name: git
@@ -132,7 +272,7 @@ extensions:
       - x
       - mcp-remote
       - https://mcp.linear.app/sse
-      - --transport
+      - "--transport"
       - sse-only
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
@@ -160,7 +300,8 @@ extensions:
     enabled: false
     env_keys:
       - OPENAPI_MCP_HEADERS
-    envs: {}
+    envs:
+      OPENAPI_MCP_HEADERS: '{"Authorization": "Bearer %%NOTION_TOKEN%%", "Notion-Version": "2022-06-28" }'
     name: notion
     timeout: 300
     type: stdio
@@ -170,22 +311,42 @@ extensions:
     bundled: null
     cmd: uvx
     description: Read large and complex PDF documents
-    enabled: false
+    enabled: true
     env_keys: []
     envs: {}
     name: pdfreader
     timeout: 300
     type: stdio
   pieces:
+    args:
+      - x
+      - mcp-remote
+      - http://localhost:39300/model_context_protocol/2024-11-05/sse
+      - "--transport"
+      - sse-only
     bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
     description: Interact with the Pieces long-term memory engine
-    enabled: false
+    enabled: true
     env_keys: []
     envs: {}
     name: pieces
     timeout: 300
-    type: sse
-    uri: http://localhost:39300/model_context_protocol/2024-11-05/sse
+    type: stdio
+  sharedmemory:
+    args:
+      - x
+      - "@modelcontextprotocol/server-memory"
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Shared memory system
+    enabled: true
+    env_keys: []
+    envs:
+      MEMORY_FILE_PATH: /Users/dave/.memory.json
+    name: sharedmemory
+    timeout: 300
+    type: stdio
   tutorial:
     bundled: true
     display_name: Tutorial
@@ -193,16 +354,16 @@ extensions:
     name: tutorial
     timeout: 300
     type: builtin
-  whois:
+  vscode:
     args:
       - x
-      - "@bharathvaj/whois-mcp"
+      - vscode-mcp-server
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
-    description: Look up WHOIS for a domain
-    enabled: true
+    description: VS Code integration
+    enabled: false
     env_keys: []
     envs: {}
-    name: whois
+    name: vscode
     timeout: 300
     type: stdio

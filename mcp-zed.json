@@ -1,53 +1,51 @@
 {
   "context_servers": {
     "claude-code": {
-      "path": "claude mcp serve",
+      "command": "claude mcp serve",
       "args": []
     },
+    "cloudflareContainer": {
+      "args": ["x", "mcp-remote", "https://containers.mcp.cloudflare.com/sse"],
+      "command": "/Users/dave/.local/share/mise/shims/bun"
+    },
+    "cloudflareRendering": {
+      "args": ["x", "mcp-remote", "https://browser.mcp.cloudflare.com/sse"],
+      "command": "/Users/dave/.local/share/mise/shims/bun"
+    },
     "context7": {
-      "path": "/Users/dave/.local/share/mise/shims/bun",
+      "command": "/Users/dave/.local/share/mise/shims/bun",
       "args": ["x", "@upstash/context7-mcp"]
     },
     "docker": {
       "args": ["ai", "mcpserver"],
-      "path": "docker"
+      "command": "docker"
     },
     "duckduckgo": {
       "args": ["duckduckgo-mcp-server"],
-      "path": "/Users/dave/.local/share/mise/shims/uvx"
+      "command": "/Users/dave/.local/share/mise/shims/uvx"
     },
     "fetch": {
       "args": ["mcp-server-fetch"],
-      "path": "/Users/dave/.local/share/mise/shims/uvx"
+      "command": "/Users/dave/.local/share/mise/shims/uvx"
     },
     "git": {
       "args": ["mcp-server-git"],
-      "path": "/Users/dave/.local/share/mise/shims/uvx"
+      "command": "/Users/dave/.local/share/mise/shims/uvx"
     },
-    "github": {
-      "args": ["x", "@modelcontextprotocol/server-github"],
-      "path": "/Users/dave/.local/share/mise/shims/bun"
-    },
-    "memory": {
+    "sharedMemory": {
       "args": ["x", "@modelcontextprotocol/server-memory"],
-      "path": "/Users/dave/.local/share/mise/shims/bun",
+      "command": "/Users/dave/.local/share/mise/shims/bun",
       "env": {
         "MEMORY_FILE_PATH": "/Users/dave/.memory.json"
       }
     },
     "pdfReader": {
       "args": ["mcp-read-pdf"],
-      "path": "/Users/dave/.local/share/mise/shims/uvx"
+      "command": "/Users/dave/.local/share/mise/shims/uvx"
     },
     "pieces": {
-      "args": [
-        "x",
-        "mcp-remote",
-        "http://localhost:39300/model_context_protocol/2024-11-05/sse",
-        "--transport",
-        "sse-only"
-      ],
-      "path": "/Users/dave/.local/share/mise/shims/bun"
+      "args": ["x", "mcp-remote", "http://localhost:39300/model_context_protocol/2024-11-05/sse"],
+      "command": "/Users/dave/.local/share/mise/shims/bun"
     }
   }
 }
