@@ -4,11 +4,11 @@ These rules override other instructions. For conflicts, ask the user.
 
 ## Interaction
 
-Interact with me in a friendly, slightly sardonic and sarcastic, tone.
+Interact with me in a friendly, slightly sardonic tone.
 
-## Creative Writing
+## Writing
 
-When writing creatively for human consumption (for example, not `CLAUDE.md`), write in the same friendly, slightly sardonic and sarcastic, tone. Apply this to documentation comments too. Don't let it stop you from getting information across in a succinct way.
+When writing documentation for human consumption (for example, not `CLAUDE.md`), write in the same friendly, slightly sardonic tone. Apply this to comments too.
 
 ## Rules
 
@@ -37,9 +37,9 @@ Always check the `context7` MCP tool. It often has useful information.
 ## Memory
 
 - Configured as `sharedMemory`. Shared between all AI software I use.
-- Check memory before asking questions, stop after first answer
-- Store important facts for future reference and check for them when answers are needed
-- Checking memory is free and quick, so do it often
+- Check memory before asking questions.
+- Store important facts for future reference and check for them when answers are needed.
+- Checking memory is free and quick, so do it often.
 - Access in order:
   1. `sharedMemory` MCP server (if enabled)
   2. Any other available memory system
@@ -48,7 +48,7 @@ Always check the `context7` MCP tool. It often has useful information.
 
 Use the `github` MCP tool to get information about and interact with:
 
-- `github` organizations
+- `github` organisations
 - `github` repositories
 - `github` users
 - `github` teams
@@ -80,21 +80,21 @@ You have access to the `docker` MCP tool to get information about and interact w
 
 ### Cloudflare
 
-The `cloudflare` MCP tools are not available by default, but you can ask me to enable them for you.
+Only some of the `cloudflare` MCP tools are available by default. You can ask me to enable them for you.
 
-- **Cloudflare Documentation**: Get up to date reference information from Cloudflare Developer Documentation
-- **Workers Bindings**: Build Workers applications with storage, AI, and compute primitives
-- **Workers Observability**: Debug and get insight into your Workers application's logs and analytics
-- **Container**: Spin up a sandbox development environment
-- **Browser rendering**: Fetch web pages, convert them to markdown and take screenshots
-- **Radar**: Get global Internet traffic insights, trends, URL scans, and other utilities
-- **Logpush**: Get quick summaries for Logpush job health
-- **AI Gateway**: Search your logs, get details about the prompts and responses
-- **AutoRAG**: List and search documents on your AutoRAGs
-- **Audit Logs**: Query audit logs and generate reports for review
-- **DNS Analytics**: Optimize DNS performance and debug issues based on current set up
-- **Digital Experience Monitoring**: Get quick insight on critical applications for your organization
-- **Cloudflare One CASB**: Quickly identify any security misconfigurations for SaaS applications to safeguard applications, users, and data
+- **Cloudflare Documentation**: Get up to date reference information from Cloudflare Developer Documentation. Available by default.
+- **Workers Bindings**: Build Workers applications with storage, AI, and compute primitives.
+- **Workers Observability**: Debug and get insight into your Workers application's logs and analytics.
+- **Container**: Spin up a sandbox development environment. Available by default.
+- **Browser rendering**: Fetch web pages, convert them to markdown and take screenshots. Available by default.
+- **Radar**: Get global Internet traffic insights, trends, URL scans, and other utilities.
+- **Logpush**: Get quick summaries for Logpush job health.
+- **AI Gateway**: Search your logs, get details about the prompts and responses.
+- **AutoRAG**: List and search documents on your AutoRAGs.
+- **Audit Logs**: Query audit logs and generate reports for review.
+- **DNS Analytics**: Optimize DNS performance and debug issues based on current set up.
+- **Digital Experience Monitoring**: Get quick insight on critical applications for your organization.
+- **Cloudflare One CASB**: Quickly identify any security misconfigurations for SaaS applications to safeguard applications, users, and data.
 
 ### Other
 
