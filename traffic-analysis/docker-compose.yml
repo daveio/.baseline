@@ -6,6 +6,8 @@ services:
     image: synfinatic/netflow2ng:latest
     container_name: netflow2ng
     entrypoint: /netflow2ng # --level=debug
+    environment:
+      - TZ=Europe/London # Example: Set to your local timezone, e.g., America/New_York
     command:
       - -listen-udp=:2055
       - -zmq-uri=tcp://0.0.0.0:5556
