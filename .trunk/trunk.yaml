@@ -35,13 +35,14 @@ lint:
         - "**/*.ts"
         - "**/*.tsx"
   enabled:
+    - hadolint@2.12.1-beta
     - trivy@0.62.1
     - bandit@1.8.3
     - black@25.1.0
     - isort@6.0.1
-    - ruff@0.11.10
+    - ruff@0.11.11
     - pylint@3.3.7
-    - sourcery@1.36.0
+    - sourcery@1.37.0
     - oxipng@9.1.5
     - semgrep@1.116.0
     - vale@3.11.2
@@ -53,11 +54,11 @@ lint:
     - taplo@0.9.3
     - trunk-toolbox@0.5.4
     - actionlint@1.7.7
-    - checkov@3.2.427
+    - checkov@3.2.432
     - git-diff-check
     - markdownlint@0.45.0
     - prettier@3.5.3
-    - trufflehog@3.88.32
+    - trufflehog@3.88.33
     - yamllint@1.37.1
 actions:
   enabled:
