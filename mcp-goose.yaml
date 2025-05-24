@@ -113,6 +113,20 @@ extensions:
     name: cloudflarecontainer
     timeout: 300
     type: stdio
+  cloudflaredocumentation:
+    args:
+      - x
+      - mcp-remote
+      - https://docs.mcp.cloudflare.com/sse
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Cloudflare Documentation
+    enabled: false
+    env_keys: []
+    envs: {}
+    name: cloudflaredocumentation
+    timeout: 300
+    type: stdio
   cloudflareobservability:
     args:
       - x

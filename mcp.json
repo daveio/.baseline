@@ -8,6 +8,10 @@
       "args": ["x", "mcp-remote", "https://containers.mcp.cloudflare.com/sse"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
     },
+    "cloudflareDocumentation": {
+      "args": ["x","mcp-remote", "https://docs.mcp.cloudflare.com/sse"],
+			"command": "/Users/dave/.local/share/mise/shims/bun"
+		},
     "cloudflareRendering": {
       "args": ["x", "mcp-remote", "https://browser.mcp.cloudflare.com/sse"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
