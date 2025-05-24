@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   netflow2ng:
     security_opt:
@@ -7,15 +5,17 @@ services:
     read_only: true
     image: synfinatic/netflow2ng:latest
     container_name: netflow2ng
+    entrypoint: /netflow2ng # --level=debug
     command:
       - -listen-udp=:2055
       - -zmq-uri=tcp://0.0.0.0:5556
     ports:
+      - 5556:5556/tcp
+      - 8080:8080/tcp
       - 2055:2055/udp
     networks:
       - monitoring_net
     restart: unless-stopped
-
   ntopng:
     security_opt:
       - no-new-privileges:true
@@ -31,7 +31,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ntopng_data_vol:/var/lib/ntopng # Using a named volume
+      - ntopng-data:/var/lib/ntopng # Using a named volume
       # Alternatively, use a bind mount:
       # - ./ntopng_data:/var/lib/ntopng
     networks:
@@ -40,11 +40,9 @@ services:
       - netflow2ng
     restart: unless-stopped
     environment:
-      - TZ=Etc/UTC # Example: Set to your local timezone, e.g., America/New_York
-
+      - TZ=Europe/London # Example: Set to your local timezone, e.g., America/New_York
 networks:
   monitoring_net:
     driver: bridge
-
 volumes:
-  ntopng_data_vol: # Definition for the named volume
+  ntopng-data: # Definition for the named volume
