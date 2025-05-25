@@ -4,47 +4,55 @@ updates:
     directory: /
     schedule:
       interval: daily
+    open-pull-requests-limit: 100
     assignees:
       - daveio
   - package-ecosystem: bundler
     directory: /
     schedule:
       interval: daily
+    open-pull-requests-limit: 100
     assignees:
       - daveio
   - package-ecosystem: cargo
     directory: /
     schedule:
       interval: daily
+    open-pull-requests-limit: 100
     assignees:
       - daveio
   - package-ecosystem: docker
     directory: /
     schedule:
       interval: daily
+    open-pull-requests-limit: 100
     assignees:
       - daveio
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: daily
+    open-pull-requests-limit: 100
     assignees:
       - daveio
   - package-ecosystem: gomod
     directory: /
     schedule:
       interval: daily
+    open-pull-requests-limit: 100
     assignees:
       - daveio
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: daily
+    open-pull-requests-limit: 100
     assignees:
       - daveio
   - package-ecosystem: pip
     directory: /
     schedule:
       interval: daily
+    open-pull-requests-limit: 100
     assignees:
       - daveio
