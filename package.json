@@ -5,15 +5,16 @@
   "private": true,
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@types/bun": "^1.2.11",
-    "eslint": "^9.26.0",
+    "@types/bun": "^1.2.14",
+    "eslint": "^9.27.0",
     "eslint-config-next": "^15.3.2"
   },
   "peerDependencies": {
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@biomejs/biome": "^1.9.4"
+    "@biomejs/biome": "^1.9.4",
+    "commander": "^14.0.0"
   },
   "trustedDependencies": ["@biomejs/biome", "unrs-resolver"],
   "engines": {
