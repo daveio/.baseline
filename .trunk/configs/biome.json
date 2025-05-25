@@ -24,7 +24,7 @@
     "formatter": {
       "quoteStyle": "double",
       "semicolons": "asNeeded",
-      "trailingComma": "none"
+      "trailingCommas": "none"
     }
   },
   "json": {

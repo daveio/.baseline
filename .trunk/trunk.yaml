@@ -17,23 +17,13 @@ runtimes:
     - python@3.10.8
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
+  disabled:
+    - prettier
   ignore:
     - linters:
         - ALL
       paths:
         - rails/**
-    - linters:
-        - prettier
-      paths:
-        - "**/*.css"
-        - "**/*.js"
-        - "**/*.json"
-        - "**/*.jsx"
-        - "**/*.mjs"
-        - "**/*.mjsx"
-        - "**/*.mts"
-        - "**/*.ts"
-        - "**/*.tsx"
   enabled:
     - hadolint@2.12.1-beta
     - trivy@0.62.1
@@ -57,7 +47,6 @@ lint:
     - checkov@3.2.432
     - git-diff-check
     - markdownlint@0.45.0
-    - prettier@3.5.3
     - trufflehog@3.88.33
     - yamllint@1.37.1
 actions:

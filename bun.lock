@@ -5,12 +5,14 @@
       "name": "baseline",
       "dependencies": {
         "@biomejs/biome": "^1.9.4",
+        "@types/js-yaml": "^4.0.9",
         "commander": "^14.0.0",
+        "js-yaml": "^4.1.0",
       },
       "devDependencies": {
         "@eslint/eslintrc": "^3.3.1",
-        "@types/bun": "^1.2.11",
-        "eslint": "^9.26.0",
+        "@types/bun": "^1.2.14",
+        "eslint": "^9.27.0",
         "eslint-config-next": "^15.3.2",
       },
       "peerDependencies": {
@@ -94,6 +96,8 @@
     "@types/bun": ["@types/bun@1.2.14", "", { "dependencies": { "bun-types": "1.2.14" } }, "sha512-VsFZKs8oKHzI7zwvECiAJ5oSorWndIWEVhfbYqZd4HI/45kzW7PN2Rr5biAzvGvRuNmYLSANY+H59ubHq8xw7Q=="],
 
     "@types/estree": ["@types/estree@1.0.7", "", {}, "sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ=="],
+
+    "@types/js-yaml": ["@types/js-yaml@4.0.9", "", {}, "sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg=="],
 
     "@types/json-schema": ["@types/json-schema@7.0.15", "", {}, "sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA=="],
 
