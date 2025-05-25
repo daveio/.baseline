@@ -16,6 +16,9 @@
     "@biomejs/biome": "^1.9.4",
     "commander": "^14.0.0"
   },
+  "scripts": {
+    "pin": "bun run scripts/pin.ts $SRCHOME"
+  },
   "trustedDependencies": ["@biomejs/biome", "unrs-resolver"],
   "engines": {
     "bun": "~1.2.14",
