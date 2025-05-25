@@ -7,6 +7,20 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+  - package-ecosystem: pub
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 100
+    assignees:
+      - daveio
+  - package-ecosystem: terraform
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 100
+    assignees:
+      - daveio
   - package-ecosystem: bundler
     directory: /
     schedule:
@@ -15,6 +29,13 @@ updates:
     assignees:
       - daveio
   - package-ecosystem: cargo
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 100
+    assignees:
+      - daveio
+  - package-ecosystem: composer
     directory: /
     schedule:
       interval: daily
@@ -35,6 +56,13 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+  - package-ecosystem: gitsubmodule
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 100
+    assignees:
+      - daveio
   - package-ecosystem: gomod
     directory: /
     schedule:
@@ -42,7 +70,35 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 100
+    assignees:
+      - daveio
+  - package-ecosystem: maven
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 100
+    assignees:
+      - daveio
+  - package-ecosystem: mix
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 100
+    assignees:
+      - daveio
   - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 100
+    assignees:
+      - daveio
+  - package-ecosystem: nuget
     directory: /
     schedule:
       interval: daily

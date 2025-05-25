@@ -7,6 +7,13 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+  - package-ecosystem: gitsubmodule
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 100
+    assignees:
+      - daveio
   - package-ecosystem: npm
     directory: /
     schedule:
