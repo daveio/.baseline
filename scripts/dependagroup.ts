@@ -28,26 +28,26 @@ interface DependabotConfig {
 // Process a single repository
 async function processRepository(repoPath: string): Promise<boolean> {
   const dependabotPath = path.join(repoPath, ".github", "dependabot.yml")
-  
+
   // Check if dependabot.yml exists
   if (!fs.existsSync(dependabotPath)) {
     return false
   }
 
   console.log(`📝 Processing: ${path.basename(repoPath)}`)
-  
+
   try {
     // Read and parse the dependabot.yml file
     const content = fs.readFileSync(dependabotPath, "utf-8")
     const config = yaml.load(content) as DependabotConfig
-    
+
     if (!config.updates || !Array.isArray(config.updates)) {
       console.log(`  ⚠️  Invalid dependabot.yml structure in ${path.basename(repoPath)}`)
       return false
     }
-    
+
     let modified = false
-    
+
     // Process each update configuration
     for (const update of config.updates) {
       // Always set up the groups object with our all-dependencies group
@@ -58,7 +58,7 @@ async function processRepository(repoPath: string): Promise<boolean> {
       }
       modified = true
     }
-    
+
     if (modified) {
       // Write the updated configuration back
       const updatedContent = yaml.dump(config, {
@@ -66,17 +66,17 @@ async function processRepository(repoPath: string): Promise<boolean> {
         noRefs: true, // Don't use reference tags
         quotingType: '"' // Use double quotes
       })
-      
+
       fs.writeFileSync(dependabotPath, updatedContent)
       console.log(`  ✅ Updated ${path.basename(repoPath)}/dependabot.yml with dependency grouping`)
       return true
-    } else {
-      console.log(`  ℹ️  No changes needed for ${path.basename(repoPath)}`)
-      return false
     }
-    
+    console.log(`  ℹ️  No changes needed for ${path.basename(repoPath)}`)
+    return false
   } catch (error) {
-    console.error(`  ❌ Error processing ${path.basename(repoPath)}: ${error instanceof Error ? error.message : String(error)}`)
+    console.error(
+      `  ❌ Error processing ${path.basename(repoPath)}: ${error instanceof Error ? error.message : String(error)}`
+    )
     return false
   }
 }
@@ -84,14 +84,14 @@ async function processRepository(repoPath: string): Promise<boolean> {
 // Find all repositories in a directory
 function findRepositories(rootDir: string): string[] {
   const repos: string[] = []
-  
+
   try {
     const entries = fs.readdirSync(rootDir, { withFileTypes: true })
-    
+
     for (const entry of entries) {
       if (entry.isDirectory() && !entry.name.startsWith(".")) {
         const repoPath = path.join(rootDir, entry.name)
-        
+
         // Check if it's a git repository
         if (fs.existsSync(path.join(repoPath, ".git"))) {
           repos.push(repoPath)
@@ -101,7 +101,7 @@ function findRepositories(rootDir: string): string[] {
   } catch (error) {
     console.error(`Error reading directory ${rootDir}: ${error instanceof Error ? error.message : String(error)}`)
   }
-  
+
   return repos
 }
 
@@ -115,22 +115,22 @@ async function main() {
     .argument("[directory]", "specific repository directory to process")
     .option("-d, --dry-run", "show what would be changed without making modifications")
     .parse()
-  
+
   const options = program.opts()
   const isDryRun = options.dryRun || false
-  
+
   // Determine what to process
   let repositories: string[] = []
-  
+
   if (program.args[0]) {
     // Process specific directory
     const targetPath = path.resolve(program.args[0])
-    
+
     if (!fs.existsSync(targetPath)) {
       console.error(`❌ Directory not found: ${targetPath}`)
       process.exit(1)
     }
-    
+
     // Check if it's a repository itself
     if (fs.existsSync(path.join(targetPath, ".git"))) {
       repositories = [targetPath]
@@ -144,22 +144,22 @@ async function main() {
     console.log(`🔍 Scanning for repositories in: ${defaultPath}`)
     repositories = findRepositories(defaultPath)
   }
-  
+
   if (repositories.length === 0) {
     console.log("No repositories found to process")
     return
   }
-  
+
   console.log(`Found ${repositories.length} repository(ies) to process\n`)
-  
+
   if (isDryRun) {
     console.log("🔍 DRY RUN MODE - No changes will be made\n")
   }
-  
+
   // Process each repository
   let updatedCount = 0
   let processedCount = 0
-  
+
   for (const repoPath of repositories) {
     if (!isDryRun) {
       const updated = await processRepository(repoPath)
@@ -174,7 +174,7 @@ async function main() {
       }
     }
   }
-  
+
   // Summary
   console.log("\n📊 Summary")
   console.log("================")

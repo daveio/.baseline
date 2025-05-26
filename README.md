@@ -7,7 +7,7 @@ A comprehensive development toolkit providing standardized configurations, rules
 This repository serves as a centralized baseline for development tools, configurations, and automation scripts across multiple projects. It includes:
 
 - **Cursor Rules**: Comprehensive coding guidelines for various frameworks and languages
-- **Development Configurations**: Standardized configs for linting, formatting, and tooling  
+- **Development Configurations**: Standardized configs for linting, formatting, and tooling
 - **Automation Scripts**: Utilities for repository management and CI/CD workflows
 - **PostgreSQL Setup**: Local development database configuration
 
@@ -88,7 +88,7 @@ docker-compose up -d
 
 ## Repository Structure
 
-```
+```plaintext
 ├── _cursor/           # Cursor IDE rules and configurations
 │   └── rules/         # Framework-specific coding guidelines
 ├── _github/           # GitHub workflows and configurations

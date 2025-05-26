@@ -19,7 +19,7 @@ function getTimestamp(): string {
   const seconds = String(now.getSeconds()).padStart(2, "0")
   return `${year}-${month}-${day}_${hours}-${minutes}-${seconds}`
 }
-const MAX_CONCURRENCY = 5
+const _MAX_CONCURRENCY = 5
 
 // Type definitions
 interface ActionUpdate {
@@ -54,37 +54,6 @@ interface RepoMetadata {
 
 interface GitHubRepoCache {
   [repoKey: string]: RepoMetadata
-}
-
-// Concurrency limiter
-class Semaphore {
-  private permits: number
-  private waiting: Array<() => void> = []
-
-  constructor(count: number) {
-    this.permits = count
-  }
-
-  async acquire(): Promise<void> {
-    if (this.permits > 0) {
-      this.permits--
-      return Promise.resolve()
-    }
-    return new Promise<void>((resolve) => {
-      this.waiting.push(resolve)
-    })
-  }
-
-  release(): void {
-    if (this.waiting.length > 0) {
-      const resolve = this.waiting.shift()
-      if (resolve) {
-        resolve()
-      }
-    } else {
-      this.permits++
-    }
-  }
 }
 
 // Find all repositories in a directory
@@ -185,18 +154,18 @@ function extractUniqueRepos(repositoriesToProcess: string[]): Set<string> {
 // Build cache of repository metadata using GitHub GraphQL API
 async function buildRepoCache(uniqueRepos: Set<string>): Promise<GitHubRepoCache> {
   const cache: GitHubRepoCache = {}
-  
+
   console.log(`🔍 Fetching metadata for ${uniqueRepos.size} unique repositories using GraphQL...`)
 
   // Get GitHub token
-  const { stdout: token } = await execAsync('gh auth token')
+  const { stdout: token } = await execAsync("gh auth token")
   const githubToken = token.trim()
 
   // Convert set to array and split into batches (GraphQL has query size limits)
   const repoArray = Array.from(uniqueRepos)
   const batchSize = 50 // Conservative batch size to avoid query limits
   const batches = []
-  
+
   for (let i = 0; i < repoArray.length; i += batchSize) {
     batches.push(repoArray.slice(i, i + batchSize))
   }
@@ -209,9 +178,10 @@ async function buildRepoCache(uniqueRepos: Set<string>): Promise<GitHubRepoCache
 
     try {
       // Build GraphQL query for this batch
-      const repositoryQueries = batch.map((fullRepo, index) => {
-        const [owner, name] = fullRepo.split('/')
-        return `
+      const repositoryQueries = batch
+        .map((fullRepo, index) => {
+          const [owner, name] = fullRepo.split("/")
+          return `
           repo${index}: repository(owner: "${owner}", name: "${name}") {
             nameWithOwner
             defaultBranchRef {
@@ -223,7 +193,8 @@ async function buildRepoCache(uniqueRepos: Set<string>): Promise<GitHubRepoCache
               }
             }
           }`
-      }).join('\n')
+        })
+        .join("\n")
 
       const query = `
         query {
@@ -237,9 +208,10 @@ async function buildRepoCache(uniqueRepos: Set<string>): Promise<GitHubRepoCache
       )
 
       const response = JSON.parse(stdout)
-      
+
       if (response.errors) {
-        console.error(`  ❌ GraphQL errors in batch ${batchIndex + 1}:`, response.errors)
+        console.error(`  ❌ GraphQL errors in batch ${batchIndex + 1}:`)
+        console.error(response.errors)
         continue
       }
 
@@ -250,8 +222,8 @@ async function buildRepoCache(uniqueRepos: Set<string>): Promise<GitHubRepoCache
       for (let i = 0; i < batch.length; i++) {
         const fullRepo = batch[i]
         const repoData = data[`repo${i}`]
-        
-        if (repoData && repoData.defaultBranchRef && repoData.defaultBranchRef.target) {
+
+        if (repoData?.defaultBranchRef?.target) {
           const defaultBranch = repoData.defaultBranchRef.name
           const latestCommit = repoData.defaultBranchRef.target.oid
 
@@ -270,7 +242,7 @@ async function buildRepoCache(uniqueRepos: Set<string>): Promise<GitHubRepoCache
       console.log(`  📊 Batch ${batchIndex + 1} completed: ${successCount}/${batch.length} repositories cached`)
     } catch (error) {
       console.error(`  ❌ Failed to process batch ${batchIndex + 1}: ${error}`)
-      
+
       // Fallback to individual REST API calls for this batch
       console.log(`  🔄 Falling back to individual REST calls for batch ${batchIndex + 1}...`)
       for (const fullRepo of batch) {
@@ -299,7 +271,7 @@ async function buildRepoCache(uniqueRepos: Set<string>): Promise<GitHubRepoCache
   }
 
   console.log(`📦 Built cache for ${Object.keys(cache).length}/${uniqueRepos.size} repositories\n`)
-  
+
   return cache
 }
 
