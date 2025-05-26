@@ -20,7 +20,8 @@
   },
   "scripts": {
     "pin": "bun run scripts/pin.ts",
-    "dependagroup": "bun run scripts/dependagroup.ts"
+    "dependagroup": "bun run scripts/dependagroup.ts",
+    "maint": "bun run pin; bun run dependagroup"
   },
   "trustedDependencies": ["@biomejs/biome", "unrs-resolver"],
   "engines": {
