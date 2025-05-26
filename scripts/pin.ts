@@ -47,6 +47,15 @@ interface ProcessingSummary {
   totalActionsUpdated: number
 }
 
+interface RepoMetadata {
+  defaultBranch: string
+  latestCommit: string
+}
+
+interface GitHubRepoCache {
+  [repoKey: string]: RepoMetadata
+}
+
 // Concurrency limiter
 class Semaphore {
   private permits: number
@@ -102,6 +111,127 @@ function findRepositories(rootDir: string): string[] {
   return repos
 }
 
+// Extract all unique GitHub repositories from workflow files
+function extractUniqueRepos(repositoriesToProcess: string[]): Set<string> {
+  const uniqueRepos = new Set<string>()
+
+  for (const repoPath of repositoriesToProcess) {
+    const workflowsDir = path.join(repoPath, ".github", "workflows")
+    if (!fs.existsSync(workflowsDir)) continue
+
+    const workflowFiles: string[] = []
+    const dirEntries = fs.readdirSync(workflowsDir, { withFileTypes: true })
+
+    for (const entry of dirEntries) {
+      if (entry.isFile() && (entry.name.endsWith(".yml") || entry.name.endsWith(".yaml"))) {
+        workflowFiles.push(path.join(workflowsDir, entry.name))
+      }
+    }
+
+    for (const filePath of workflowFiles) {
+      try {
+        const content = fs.readFileSync(filePath, "utf-8")
+        const workflowYaml = yaml.load(content) as Record<string, unknown>
+
+        // Extract action references from the YAML
+        const extractReposFromNode = (node: Record<string, unknown> | unknown[] | unknown): void => {
+          if (!node || typeof node !== "object") return
+
+          if (Array.isArray(node)) {
+            for (const item of node) {
+              extractReposFromNode(item)
+            }
+            return
+          }
+
+          for (const key in node as Record<string, unknown>) {
+            const typedNode = node as Record<string, unknown>
+            if (key === "uses" && typeof typedNode[key] === "string") {
+              const actionRef = (typedNode[key] as string).trim()
+
+              // Skip Docker references and local references
+              if (actionRef.startsWith("./") || actionRef.startsWith("docker://")) continue
+
+              // Check if reference contains a version/commit
+              if (actionRef.includes("@")) {
+                const splitResult = actionRef.split("@")
+                if (splitResult.length < 2 || !splitResult[0] || !splitResult[1]) continue
+
+                const actionPath = splitResult[0]
+                const repoPathParts = actionPath.split("/")
+                if (repoPathParts.length < 2) continue
+
+                const owner = repoPathParts[0]
+                const repo = repoPathParts[1]
+                const fullRepo = `${owner}/${repo}`
+                uniqueRepos.add(fullRepo)
+              }
+            } else {
+              extractReposFromNode(typedNode[key])
+            }
+          }
+        }
+
+        extractReposFromNode(workflowYaml)
+      } catch (error) {
+        console.error(`Error reading workflow file ${filePath}: ${error}`)
+      }
+    }
+  }
+
+  return uniqueRepos
+}
+
+// Build cache of repository metadata
+async function buildRepoCache(uniqueRepos: Set<string>): Promise<GitHubRepoCache> {
+  const cache: GitHubRepoCache = {}
+  const semaphore = new Semaphore(MAX_CONCURRENCY)
+  
+  console.log(`🔍 Fetching metadata for ${uniqueRepos.size} unique repositories...`)
+
+  const repoPromises = Array.from(uniqueRepos).map(async (fullRepo) => {
+    await semaphore.acquire()
+    try {
+      // Determine default branch
+      let defaultBranch = "main"
+      try {
+        const { stdout } = await execAsync(
+          `gh repo view ${fullRepo} --json defaultBranchRef -q .defaultBranchRef.name`
+        )
+        defaultBranch = stdout.trim()
+      } catch (_error) {
+        // Fallback to 'main' or 'master'
+        try {
+          await execAsync(`gh api repos/${fullRepo}/branches/main`)
+          defaultBranch = "main"
+        } catch {
+          defaultBranch = "master"
+        }
+      }
+
+      // Get latest commit on default branch
+      const { stdout } = await execAsync(`gh api repos/${fullRepo}/commits/${defaultBranch} --jq .sha`)
+      const latestCommit = stdout.trim()
+
+      cache[fullRepo] = {
+        defaultBranch,
+        latestCommit
+      }
+
+      console.log(`  ✓ Cached ${fullRepo}: ${defaultBranch}@${latestCommit.substring(0, 8)}...`)
+    } catch (error) {
+      console.error(`  ❌ Failed to fetch metadata for ${fullRepo}: ${error}`)
+    } finally {
+      semaphore.release()
+    }
+  })
+
+  await Promise.all(repoPromises)
+  console.log(`📦 Built cache for ${Object.keys(cache).length}/${uniqueRepos.size} repositories\n`)
+  
+  return cache
+}
+
 // Main function to coordinate the entire process
 async function main() {
   console.log("🔍 Finding repositories and updating GitHub Action workflows...")
@@ -146,6 +276,10 @@ async function main() {
 
   console.log(`Found ${repositoriesToProcess.length} repository(ies) to process\n`)
 
+  // Extract unique repositories from all workflow files and build cache
+  const uniqueRepos = extractUniqueRepos(repositoriesToProcess)
+  const repoCache = await buildRepoCache(uniqueRepos)
+
   const homeDir = process.env.HOME || "~"
   const backupRoot = path.join(homeDir, ".actions-backups")
   // Ensure backup root directory exists
@@ -172,7 +306,7 @@ async function main() {
   for (const repoPath of repositoriesToProcess) {
     const repoName = path.basename(repoPath)
     try {
-      const repoUpdate = await processRepository(repoName, repoPath, backupDir, summary)
+      const repoUpdate = await processRepository(repoName, repoPath, backupDir, summary, repoCache)
       if (repoUpdate.workflowUpdates.length > 0) {
         summary.repoUpdates.push(repoUpdate)
       }
@@ -194,7 +328,8 @@ async function processRepository(
   repoName: string,
   repoPath: string,
   backupDir: string,
-  summary: ProcessingSummary
+  summary: ProcessingSummary,
+  repoCache: GitHubRepoCache
 ): Promise<RepoUpdate> {
   console.log(`\n📁 Processing repository: ${repoName}`)
   console.log(`  🔄 Backups will be stored in: ${path.join(backupDir, repoName)}`)
@@ -232,8 +367,7 @@ async function processRepository(
   fs.mkdirSync(repoBackupDir, { recursive: true })
 
   // Process each workflow file
-  const semaphore = new Semaphore(MAX_CONCURRENCY)
-  const filePromises = workflowFiles.map((filePath) => processWorkflowFile(filePath, repoPath, backupDir, semaphore))
+  const filePromises = workflowFiles.map((filePath) => processWorkflowFile(filePath, repoPath, backupDir, repoCache))
 
   const workflowUpdates = await Promise.all(filePromises)
   const validUpdates = workflowUpdates.filter((update) => update !== null) as WorkflowUpdate[]
@@ -250,15 +384,15 @@ async function processWorkflowFile(
   filePath: string,
   repoPath: string,
   backupDir: string,
-  semaphore: Semaphore
+  repoCache: GitHubRepoCache
 ): Promise<WorkflowUpdate | null> {
   const relativePath = path.relative(repoPath, filePath)
   const backupPath = path.join(backupDir, path.basename(repoPath), relativePath)
 
   try {
     // Create backup of the file
-    const backupDir = path.dirname(backupPath)
-    fs.mkdirSync(backupDir, { recursive: true })
+    const backupDirPath = path.dirname(backupPath)
+    fs.mkdirSync(backupDirPath, { recursive: true })
     fs.copyFileSync(filePath, backupPath)
 
     // Read the file and parse YAML
@@ -269,7 +403,7 @@ async function processWorkflowFile(
     const updates: ActionUpdate[] = []
 
     // Function to recursively update GitHub Actions in the YAML structure
-    const processNode = async (node: Record<string, unknown> | unknown[] | unknown): Promise<boolean> => {
+    const processNode = (node: Record<string, unknown> | unknown[] | unknown): boolean => {
       if (!node || typeof node !== "object") {
         return false
       }
@@ -278,7 +412,7 @@ async function processWorkflowFile(
       // If this is an array, process each item
       if (Array.isArray(node)) {
         for (let i = 0; i < node.length; i++) {
-          const childModified = await processNode(node[i])
+          const childModified = processNode(node[i])
           modified = modified || childModified
         }
         return modified
@@ -303,68 +437,42 @@ async function processWorkflowFile(
             const actionPath = splitResult[0]
             const oldRef = splitResult[1]
 
-            try {
-              // Extract repo from action path (could be owner/repo or owner/repo/path)
-              const repoPathParts = actionPath.split("/")
-              if (repoPathParts.length < 2) {
-                continue // Invalid reference
-              }
-              const owner = repoPathParts[0]
-              const repo = repoPathParts[1]
-              const fullRepo = `${owner}/${repo}`
-              // Acquire semaphore before making GitHub API calls
-              await semaphore.acquire()
-              try {
-                // Determine default branch
-                let defaultBranch = "main"
-                try {
-                  const { stdout } = await execAsync(
-                    `gh repo view ${fullRepo} --json defaultBranchRef -q .defaultBranchRef.name`
-                  )
-                  defaultBranch = stdout.trim()
-                } catch (_error) {
-                  // Fallback to 'main' or 'master'
-                  try {
-                    // Check if main branch exists
-                    await execAsync(`gh api repos/${fullRepo}/branches/main`)
-                    defaultBranch = "main"
-                  } catch {
-                    defaultBranch = "master"
-                  }
-                }
-                // Get latest commit on default branch
-                const { stdout } = await execAsync(`gh api repos/${fullRepo}/commits/${defaultBranch} --jq .sha`)
-                const latestCommit = stdout.trim()
-                // Update the action reference in the YAML
-                typedNode[key] = `${actionPath}@${latestCommit}`
-                updates.push({
-                  actionPath,
-                  oldRef,
-                  newRef: latestCommit
-                })
-                console.log(`  📌 Pinned ${actionPath} from ${oldRef} to ${latestCommit.substring(0, 8)}...`)
-                modified = true
-              } finally {
-                // Release semaphore
-                semaphore.release()
-              }
-            } catch (error) {
-              semaphore.release()
-              console.error(
-                `  ❌ Failed to update ${actionPath}@${oldRef}: ${error instanceof Error ? error.message : String(error)}`
-              )
+            // Extract repo from action path (could be owner/repo or owner/repo/path)
+            const repoPathParts = actionPath.split("/")
+            if (repoPathParts.length < 2) {
+              continue // Invalid reference
+            }
+            const owner = repoPathParts[0]
+            const repo = repoPathParts[1]
+            const fullRepo = `${owner}/${repo}`
+
+            // Use cached data instead of making API calls
+            const cachedRepo = repoCache[fullRepo]
+            if (cachedRepo) {
+              // Update the action reference in the YAML
+              const latestCommit = cachedRepo.latestCommit
+              typedNode[key] = `${actionPath}@${latestCommit}`
+              updates.push({
+                actionPath,
+                oldRef,
+                newRef: latestCommit
+              })
+              console.log(`  📌 Pinned ${actionPath} from ${oldRef} to ${latestCommit.substring(0, 8)}...`)
+              modified = true
+            } else {
+              console.log(`  ⚠️  No cached data for ${fullRepo}, skipping ${actionPath}@${oldRef}`)
             }
           }
         } else {
           // Recursively process nested objects and arrays
-          const childModified = await processNode(typedNode[key])
+          const childModified = processNode(typedNode[key])
           modified = modified || childModified
         }
       }
       return modified
     }
     // Process the entire YAML structure
-    const modified = await processNode(workflowYaml)
+    const modified = processNode(workflowYaml)
     // Write updated content if there were changes
     if (updates.length > 0 && modified) {
       // Convert back to YAML and write to file
