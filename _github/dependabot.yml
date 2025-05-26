@@ -7,6 +7,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: pub
     directory: /
     schedule:
@@ -14,6 +18,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: terraform
     directory: /
     schedule:
@@ -21,6 +29,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: bundler
     directory: /
     schedule:
@@ -28,6 +40,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: cargo
     directory: /
     schedule:
@@ -35,6 +51,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: composer
     directory: /
     schedule:
@@ -42,6 +62,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: docker
     directory: /
     schedule:
@@ -49,6 +73,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -56,6 +84,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: gitsubmodule
     directory: /
     schedule:
@@ -63,6 +95,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: gomod
     directory: /
     schedule:
@@ -70,6 +106,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: gradle
     directory: /
     schedule:
@@ -77,6 +117,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: maven
     directory: /
     schedule:
@@ -84,6 +128,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: mix
     directory: /
     schedule:
@@ -91,6 +139,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: npm
     directory: /
     schedule:
@@ -98,6 +150,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: nuget
     directory: /
     schedule:
@@ -105,6 +161,10 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: pip
     directory: /
     schedule:
@@ -112,3 +172,7 @@ updates:
     open-pull-requests-limit: 100
     assignees:
       - daveio
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
