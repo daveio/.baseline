@@ -19,7 +19,8 @@
     "js-yaml": "^4.1.0"
   },
   "scripts": {
-    "pin": "bun run scripts/pin.ts $SRCHOME"
+    "pin": "bun run scripts/pin.ts",
+    "dependagroup": "bun run scripts/dependagroup.ts"
   },
   "trustedDependencies": ["@biomejs/biome", "unrs-resolver"],
   "engines": {

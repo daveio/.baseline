@@ -47,7 +47,7 @@ lint:
     - checkov@3.2.432
     - git-diff-check
     - markdownlint@0.45.0
-    - trufflehog@3.88.33
+    - trufflehog@3.88.34
     - yamllint@1.37.1
 actions:
   enabled:

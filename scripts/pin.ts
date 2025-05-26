@@ -1,7 +1,7 @@
 #!/usr/bin/env -S bun --enable-source-maps
 import { exec } from "node:child_process"
-import fs from "node:fs"
-import path from "node:path"
+import * as fs from "node:fs"
+import * as path from "node:path"
 import { promisify } from "node:util"
 import { Command } from "commander"
 import * as yaml from "js-yaml"
@@ -78,6 +78,30 @@ class Semaphore {
   }
 }
 
+// Find all repositories in a directory
+function findRepositories(rootDir: string): string[] {
+  const repos: string[] = []
+
+  try {
+    const entries = fs.readdirSync(rootDir, { withFileTypes: true })
+
+    for (const entry of entries) {
+      if (entry.isDirectory() && !entry.name.startsWith(".")) {
+        const repoPath = path.join(rootDir, entry.name)
+
+        // Check if it's a git repository
+        if (fs.existsSync(path.join(repoPath, ".git"))) {
+          repos.push(repoPath)
+        }
+      }
+    }
+  } catch (error) {
+    console.error(`Error reading directory ${rootDir}: ${error instanceof Error ? error.message : String(error)}`)
+  }
+
+  return repos
+}
+
 // Main function to coordinate the entire process
 async function main() {
   console.log("🔍 Finding repositories and updating GitHub Action workflows...")
@@ -86,10 +110,41 @@ async function main() {
   program
     .name("pin")
     .description("Find repositories and update GitHub Action workflows to specific commit SHAs")
-    .argument("[directory]", "directory to scan for repositories (defaults to current working directory)")
+    .argument("[directory]", "specific repository directory to process")
     .parse()
-  // Use the provided directory or fall back to current working directory
-  const rootDir: string = program.args[0] || process.cwd()
+
+  // Determine what to process
+  let repositoriesToProcess: string[] = []
+
+  if (program.args[0]) {
+    // Process specific directory
+    const targetPath = path.resolve(program.args[0])
+
+    if (!fs.existsSync(targetPath)) {
+      console.error(`❌ Directory not found: ${targetPath}`)
+      process.exit(1)
+    }
+
+    // Check if it's a repository itself
+    if (fs.existsSync(path.join(targetPath, ".git"))) {
+      repositoriesToProcess = [targetPath]
+    } else {
+      console.error(`❌ Not a git repository: ${targetPath}`)
+      process.exit(1)
+    }
+  } else {
+    // Process all subdirectories of the default path
+    const defaultPath = "/Users/dave/src/github.com/daveio"
+    console.log(`🔍 Scanning for repositories in: ${defaultPath}`)
+    repositoriesToProcess = findRepositories(defaultPath)
+  }
+
+  if (repositoriesToProcess.length === 0) {
+    console.log("No repositories found to process")
+    return
+  }
+
+  console.log(`Found ${repositoriesToProcess.length} repository(ies) to process\n`)
 
   const homeDir = process.env.HOME || "~"
   const backupRoot = path.join(homeDir, ".actions-backups")
@@ -113,21 +168,10 @@ async function main() {
     totalActionsUpdated: 0
   }
 
-  // Find all repositories (directories with a .git folder)
-  const dirEntries = fs.readdirSync(rootDir, { withFileTypes: true })
-  const repoDirs = dirEntries
-    .filter(
-      (entry) =>
-        entry.isDirectory() && !entry.name.startsWith(".") && fs.existsSync(path.join(rootDir, entry.name, ".git"))
-    )
-    .map((entry) => entry.name)
-
-  console.log(`Found ${repoDirs.length} repositories to process in ${rootDir}`)
-
   // Process each repository
-  for (const repoName of repoDirs) {
+  for (const repoPath of repositoriesToProcess) {
+    const repoName = path.basename(repoPath)
     try {
-      const repoPath = path.join(rootDir, repoName)
       const repoUpdate = await processRepository(repoName, repoPath, backupDir, summary)
       if (repoUpdate.workflowUpdates.length > 0) {
         summary.repoUpdates.push(repoUpdate)
@@ -225,8 +269,10 @@ async function processWorkflowFile(
     const updates: ActionUpdate[] = []
 
     // Function to recursively update GitHub Actions in the YAML structure
-    async function processNode(node: Record<string, unknown> | unknown[] | unknown): Promise<boolean> {
-      if (!node || typeof node !== "object") return false
+    const processNode = async (node: Record<string, unknown> | unknown[] | unknown): Promise<boolean> => {
+      if (!node || typeof node !== "object") {
+        return false
+      }
 
       let modified = false
       // If this is an array, process each item
@@ -250,12 +296,19 @@ async function processWorkflowFile(
           }
           // Check if reference contains a version/commit
           if (actionRef.includes("@")) {
-            const [actionPath, oldRef] = actionRef.split("@")
+            const splitResult = actionRef.split("@")
+            if (splitResult.length < 2 || !splitResult[0] || !splitResult[1]) {
+              continue
+            }
+            const actionPath = splitResult[0]
+            const oldRef = splitResult[1]
 
             try {
               // Extract repo from action path (could be owner/repo or owner/repo/path)
               const repoPathParts = actionPath.split("/")
-              if (repoPathParts.length < 2) continue // Invalid reference
+              if (repoPathParts.length < 2) {
+                continue // Invalid reference
+              }
               const owner = repoPathParts[0]
               const repo = repoPathParts[1]
               const fullRepo = `${owner}/${repo}`
@@ -304,7 +357,7 @@ async function processWorkflowFile(
           }
         } else {
           // Recursively process nested objects and arrays
-          const childModified = await processNode(node[key])
+          const childModified = await processNode(typedNode[key])
           modified = modified || childModified
         }
       }
