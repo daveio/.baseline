@@ -182,51 +182,122 @@ function extractUniqueRepos(repositoriesToProcess: string[]): Set<string> {
   return uniqueRepos
 }
 
-// Build cache of repository metadata
+// Build cache of repository metadata using GitHub GraphQL API
 async function buildRepoCache(uniqueRepos: Set<string>): Promise<GitHubRepoCache> {
   const cache: GitHubRepoCache = {}
-  const semaphore = new Semaphore(MAX_CONCURRENCY)
   
-  console.log(`🔍 Fetching metadata for ${uniqueRepos.size} unique repositories...`)
+  console.log(`🔍 Fetching metadata for ${uniqueRepos.size} unique repositories using GraphQL...`)
 
-  const repoPromises = Array.from(uniqueRepos).map(async (fullRepo) => {
-    await semaphore.acquire()
+  // Get GitHub token
+  const { stdout: token } = await execAsync('gh auth token')
+  const githubToken = token.trim()
+
+  // Convert set to array and split into batches (GraphQL has query size limits)
+  const repoArray = Array.from(uniqueRepos)
+  const batchSize = 50 // Conservative batch size to avoid query limits
+  const batches = []
+  
+  for (let i = 0; i < repoArray.length; i += batchSize) {
+    batches.push(repoArray.slice(i, i + batchSize))
+  }
+
+  console.log(`  📦 Processing ${batches.length} batch(es) of repositories...`)
+
+  for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+    const batch = batches[batchIndex]
+    console.log(`  🔄 Processing batch ${batchIndex + 1}/${batches.length} (${batch.length} repositories)...`)
+
     try {
-      // Determine default branch
-      let defaultBranch = "main"
-      try {
-        const { stdout } = await execAsync(
-          `gh repo view ${fullRepo} --json defaultBranchRef -q .defaultBranchRef.name`
-        )
-        defaultBranch = stdout.trim()
-      } catch (_error) {
-        // Fallback to 'main' or 'master'
-        try {
-          await execAsync(`gh api repos/${fullRepo}/branches/main`)
-          defaultBranch = "main"
-        } catch {
-          defaultBranch = "master"
+      // Build GraphQL query for this batch
+      const repositoryQueries = batch.map((fullRepo, index) => {
+        const [owner, name] = fullRepo.split('/')
+        return `
+          repo${index}: repository(owner: "${owner}", name: "${name}") {
+            nameWithOwner
+            defaultBranchRef {
+              name
+              target {
+                ... on Commit {
+                  oid
+                }
+              }
+            }
+          }`
+      }).join('\n')
+
+      const query = `
+        query {
+          ${repositoryQueries}
+        }`
+
+      // Execute GraphQL query
+      const graphqlPayload = JSON.stringify({ query })
+      const { stdout } = await execAsync(
+        `curl -s -H "Authorization: bearer ${githubToken}" -H "Content-Type: application/json" -X POST -d '${graphqlPayload.replace(/'/g, "'\\''")}' https://api.github.com/graphql`
+      )
+
+      const response = JSON.parse(stdout)
+      
+      if (response.errors) {
+        console.error(`  ❌ GraphQL errors in batch ${batchIndex + 1}:`, response.errors)
+        continue
+      }
+
+      // Process the response data
+      const data = response.data
+      let successCount = 0
+
+      for (let i = 0; i < batch.length; i++) {
+        const fullRepo = batch[i]
+        const repoData = data[`repo${i}`]
+        
+        if (repoData && repoData.defaultBranchRef && repoData.defaultBranchRef.target) {
+          const defaultBranch = repoData.defaultBranchRef.name
+          const latestCommit = repoData.defaultBranchRef.target.oid
+
+          cache[fullRepo] = {
+            defaultBranch,
+            latestCommit
+          }
+
+          console.log(`    ✓ Cached ${fullRepo}: ${defaultBranch}@${latestCommit.substring(0, 8)}...`)
+          successCount++
+        } else {
+          console.log(`    ❌ Failed to get data for ${fullRepo} (repository may not exist or be accessible)`)
         }
       }
 
-      // Get latest commit on default branch
-      const { stdout } = await execAsync(`gh api repos/${fullRepo}/commits/${defaultBranch} --jq .sha`)
-      const latestCommit = stdout.trim()
-
-      cache[fullRepo] = {
-        defaultBranch,
-        latestCommit
-      }
-
-      console.log(`  ✓ Cached ${fullRepo}: ${defaultBranch}@${latestCommit.substring(0, 8)}...`)
+      console.log(`  📊 Batch ${batchIndex + 1} completed: ${successCount}/${batch.length} repositories cached`)
     } catch (error) {
-      console.error(`  ❌ Failed to fetch metadata for ${fullRepo}: ${error}`)
-    } finally {
-      semaphore.release()
-    }
-  })
+      console.error(`  ❌ Failed to process batch ${batchIndex + 1}: ${error}`)
+      
+      // Fallback to individual REST API calls for this batch
+      console.log(`  🔄 Falling back to individual REST calls for batch ${batchIndex + 1}...`)
+      for (const fullRepo of batch) {
+        try {
+          const { stdout: branchStdout } = await execAsync(
+            `gh repo view ${fullRepo} --json defaultBranchRef -q .defaultBranchRef.name`
+          )
+          const defaultBranch = branchStdout.trim()
 
-  await Promise.all(repoPromises)
+          const { stdout: commitStdout } = await execAsync(
+            `gh api repos/${fullRepo}/commits/${defaultBranch} --jq .sha`
+          )
+          const latestCommit = commitStdout.trim()
+
+          cache[fullRepo] = {
+            defaultBranch,
+            latestCommit
+          }
+
+          console.log(`    ✓ Cached ${fullRepo}: ${defaultBranch}@${latestCommit.substring(0, 8)}... (REST fallback)`)
+        } catch (restError) {
+          console.error(`    ❌ Failed to fetch ${fullRepo} via REST: ${restError}`)
+        }
+      }
+    }
+  }
+
   console.log(`📦 Built cache for ${Object.keys(cache).length}/${uniqueRepos.size} repositories\n`)
   
   return cache
