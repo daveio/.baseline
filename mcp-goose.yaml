@@ -179,7 +179,7 @@ extensions:
   consoleninja:
     args:
       - run
-      - "~/.console-ninja/mcp/"
+      - ~/.console-ninja/mcp/
     bundled: null
     cmd: /Users/dave/.local/share/mise/shims/bun
     description: Use the Console Ninja tool to monitor output
