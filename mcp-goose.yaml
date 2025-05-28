@@ -176,6 +176,26 @@ extensions:
     name: computercontroller
     timeout: 300
     type: builtin
+  consoleninja:
+    args:
+      - run
+      - "~/.console-ninja/mcp/"
+    bundled: null
+    cmd: /Users/dave/.local/share/mise/shims/bun
+    description: Use the Console Ninja tool to monitor output
+    enabled: true
+    env_keys: []
+    envs: {}
+    name: consoleninja
+    timeout: 300
+    type: stdio
+  developer:
+    bundled: true
+    display_name: Developer
+    enabled: true
+    name: developer
+    timeout: 300
+    type: builtin
   context7:
     args:
       - x
@@ -189,13 +209,6 @@ extensions:
     name: context7
     timeout: 300
     type: stdio
-  developer:
-    bundled: true
-    display_name: Developer
-    enabled: true
-    name: developer
-    timeout: 300
-    type: builtin
   docker:
     args:
       - ai
