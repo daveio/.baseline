@@ -4,12 +4,12 @@
       "args": ["x", "@anthropic-ai/claude-code", "mcp", "serve"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
     },
-    "cloudflareContainer": {
-      "args": ["x", "mcp-remote", "https://containers.mcp.cloudflare.com/sse"],
-      "command": "/Users/dave/.local/share/mise/shims/bun"
-    },
     "cloudflareDocumentation": {
       "args": ["x", "mcp-remote", "https://docs.mcp.cloudflare.com/sse"],
+      "command": "/Users/dave/.local/share/mise/shims/bun"
+    },
+    "cloudflareObservability": {
+      "args": ["x", "mcp-remote", "https://observability.mcp.cloudflare.com/sse"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
     },
     "cloudflareRendering": {
