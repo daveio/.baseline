@@ -16,10 +16,6 @@
       "args": ["x", "mcp-remote", "https://browser.mcp.cloudflare.com/sse"],
       "command": "/Users/dave/.local/share/mise/shims/bun"
     },
-    "console-ninja": {
-      "command": "bun",
-      "args": ["run", "~/.console-ninja/mcp/"]
-    },
     "context7": {
       "command": "/Users/dave/.local/share/mise/shims/bun",
       "args": ["x", "@upstash/context7-mcp"]
