@@ -1,5 +1,17 @@
 {
   "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "ignore": [
+      "../../node_modules",
+      "../../.trunk",
+      "../../dist",
+      "../../.git",
+      "../../.history",
+      "../../.wrangler",
+      "../../components.d.ts",
+      "../../auto-imports.d.ts"
+    ]
+  },
   "css": {
     "formatter": {
       "quoteStyle": "single"
@@ -29,8 +41,8 @@
   },
   "json": {
     "parser": {
-      "allowComments": false,
-      "allowTrailingCommas": false
+      "allowComments": true,
+      "allowTrailingCommas": true
     }
   },
   "linter": {
