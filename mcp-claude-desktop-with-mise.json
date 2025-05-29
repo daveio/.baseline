@@ -2,22 +2,22 @@
   "mcpServers": {
     "claude-code": {
       "args": ["x", "@anthropic-ai/claude-code", "mcp", "serve"],
-      "command": "mise exec bun@latest -- bun"
+      "command": "/Users/dave/.config/mise/mise exec bun@latest -- bun"
     },
     "cloudflareDocumentation": {
       "args": ["x", "mcp-remote", "https://docs.mcp.cloudflare.com/sse"],
-      "command": "mise exec bun@latest -- bun"
+      "command": "/Users/dave/.config/mise/mise exec bun@latest -- bun"
     },
     "cloudflareObservability": {
       "args": ["x", "mcp-remote", "https://observability.mcp.cloudflare.com/sse"],
-      "command": "mise exec bun@latest -- bun"
+      "command": "/Users/dave/.config/mise/mise exec bun@latest -- bun"
     },
     "cloudflareRendering": {
       "args": ["x", "mcp-remote", "https://browser.mcp.cloudflare.com/sse"],
-      "command": "mise exec bun@latest -- bun"
+      "command": "/Users/dave/.config/mise/mise exec bun@latest -- bun"
     },
     "context7": {
-      "command": "mise exec bun@latest -- bun",
+      "command": "/Users/dave/.config/mise/mise exec bun@latest -- bun",
       "args": ["x", "@upstash/context7-mcp"]
     },
     "docker": {
@@ -26,30 +26,30 @@
     },
     "duckduckgo": {
       "args": ["duckduckgo-mcp-server"],
-      "command": "mise exec aqua:astral-sh/uv@latest -- uvx"
+      "command": "/Users/dave/.config/mise/mise exec aqua:astral-sh/uv@latest -- uvx"
     },
     "fetch": {
       "args": ["mcp-server-fetch"],
-      "command": "mise exec aqua:astral-sh/uv@latest -- uvx"
+      "command": "/Users/dave/.config/mise/mise exec aqua:astral-sh/uv@latest -- uvx"
     },
     "git": {
       "args": ["mcp-server-git"],
-      "command": "mise exec aqua:astral-sh/uv@latest -- uvx"
+      "command": "/Users/dave/.config/mise/mise exec aqua:astral-sh/uv@latest -- uvx"
     },
     "sharedMemory": {
       "args": ["x", "@modelcontextprotocol/server-memory"],
-      "command": "mise exec bun@latest -- bun",
+      "command": "/Users/dave/.config/mise/mise exec bun@latest -- bun",
       "env": {
         "MEMORY_FILE_PATH": "/Users/dave/.memory"
       }
     },
     "pdfReader": {
       "args": ["mcp-read-pdf"],
-      "command": "mise exec aqua:astral-sh/uv@latest -- uvx"
+      "command": "/Users/dave/.config/mise/mise exec aqua:astral-sh/uv@latest -- uvx"
     },
     "pieces": {
       "args": ["x", "mcp-remote", "http://localhost:39300/model_context_protocol/2024-11-05/sse"],
-      "command": "mise exec bun@latest -- bun"
+      "command": "/Users/dave/.config/mise/mise exec bun@latest -- bun"
     }
   }
 }
